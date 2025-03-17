@@ -1,6 +1,9 @@
+"""
+This file creates and configures the main objects for the Telegram bot to work.
+"""
+
 from aiogram import Bot, Dispatcher
-from aiogram.enums import ParseMode
-from config import BOT_TOKEN
+from tg_bot.config import BOT_TOKEN
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
