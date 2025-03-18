@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from database.engine import SessionLocal
 from backend.crud import get_users, get_user_by_telegram_id, create_user
-from schemas import UserCreate, UserResponse
+from backend.schemas import UserCreate, UserResponse
 
 router = APIRouter()
 
