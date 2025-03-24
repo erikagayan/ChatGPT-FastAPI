@@ -1,5 +1,5 @@
 from aiogram import Router
+from tg_bot.handlers.start import router as start_router
 
 router = Router()
-
-from . import start, gpt
+router.include_router(start_router)
