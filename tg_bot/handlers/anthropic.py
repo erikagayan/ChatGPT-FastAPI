@@ -1,14 +1,12 @@
 from aiogram import Router, types
+from tg_bot.states import ClaudeStates
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
+from tg_bot.handlers.start import StartStates
 from tg_bot.utils.anthropic import chat_with_claude
 from tg_bot.handlers.keyboards import model_keyboard, back_keyboard
-from tg_bot.handlers.start import StartStates
+
 
 router = Router()
-
-class ClaudeStates(StatesGroup):
-    waiting_for_prompt = State()
 
 @router.message(ClaudeStates.waiting_for_prompt)
 async def process_claude_prompt(message: types.Message, state: FSMContext):

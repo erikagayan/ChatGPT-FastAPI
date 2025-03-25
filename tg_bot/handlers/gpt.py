@@ -1,14 +1,12 @@
 from aiogram import Router, types
+from tg_bot.states import GPTStates
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
 from tg_bot.utils.gpt import chat_with_gpt
-from tg_bot.handlers.keyboards import model_keyboard, back_keyboard
 from tg_bot.handlers.start import StartStates
+from tg_bot.handlers.keyboards import model_keyboard, back_keyboard
+
 
 router = Router()
-
-class GPTStates(StatesGroup):
-    waiting_for_prompt = State()
 
 @router.message(GPTStates.waiting_for_prompt)
 async def process_gpt_prompt(message: types.Message, state: FSMContext):

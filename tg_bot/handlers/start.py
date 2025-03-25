@@ -1,18 +1,21 @@
-# handlers/start.py
 """
 Handler for the /start command.
 Fetches user info from Telegram and sends it to the backend.
 """
 
+import aiohttp
 from aiogram import Router, types
 from aiogram.filters import Command
-import aiohttp
 from tg_bot.config import BACKEND_URL
+from tg_bot.states import StartStates
+from aiogram.fsm.context import FSMContext
+from tg_bot.handlers.keyboards import model_keyboard
+
 
 router = Router()
 
 @router.message(Command("start"))
-async def start_handler(message: types.Message):
+async def start_handler(message: types.Message, state: FSMContext):
     """
     Handle the /start command.
     Collects user data and sends it to the backend API.
@@ -30,15 +33,23 @@ async def start_handler(message: types.Message):
                     await message.answer(
                         f"Hello, {message.from_user.full_name}!\n"
                         f"Your ID: {message.from_user.id}\n"
-                        f"You have successfully registered!"
+                        f"You have successfully registered!\n"
+                        "Выбери модель для общения:",
+                        reply_markup=model_keyboard
                     )
                 else:
                     await message.answer(
                         f"Hello, {message.from_user.full_name}!\n"
-                        f"Error during registration: {response.status}"
+                        f"Error during registration: {response.status}\n"
+                        "Выбери модель для общения:",
+                        reply_markup=model_keyboard
                     )
     except aiohttp.ClientError as e:
         await message.answer(
             f"Hello, {message.from_user.full_name}!\n"
-            f"Error connecting to server: {str(e)}"
+            f"Error connecting to server: {str(e)}\n"
+            "Выбери модель для общения:",
+            reply_markup=model_keyboard
         )
+
+    await state.set_state(StartStates.choosing_model)
