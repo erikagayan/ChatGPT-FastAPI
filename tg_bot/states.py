@@ -1,3 +1,6 @@
+"""
+Contains different states of the bot
+"""
 from aiogram.fsm.state import StatesGroup, State
 
 # States for /start

@@ -34,21 +34,21 @@ async def start_handler(message: types.Message, state: FSMContext):
                         f"Hello, {message.from_user.full_name}!\n"
                         f"Your ID: {message.from_user.id}\n"
                         f"You have successfully registered!\n"
-                        "Выбери модель для общения:",
+                        "Choose a model for communication:",
                         reply_markup=model_keyboard
                     )
                 else:
                     await message.answer(
                         f"Hello, {message.from_user.full_name}!\n"
                         f"Error during registration: {response.status}\n"
-                        "Выбери модель для общения:",
+                        "Choose a model for communication:",
                         reply_markup=model_keyboard
                     )
     except aiohttp.ClientError as e:
         await message.answer(
             f"Hello, {message.from_user.full_name}!\n"
             f"Error connecting to server: {str(e)}\n"
-            "Выбери модель для общения:",
+            "Choose a model for communication:",
             reply_markup=model_keyboard
         )
 
